@@ -1,0 +1,27 @@
+中心网关事件检测轮询
+void Task_EDFS(void)
+{
+    int             iRet                    = 0;
+    char            pname[MAX_PTHREAD_NAME] = {"edfsTask"};
+    EDFS_MSG        msg                     = {0};
+
+    //3 1、线程启动，增加线程名称
+    pushPthreadInfo(pname, strlen(pname));
+    //3 2、事件检测取证系统初始化
+    EDFS_MAIN_init_its();
+    //3 3、事件检测取证系统-消息接收循环
+    FOREVER
+    {
+        bzero(&msg, sizeof(EDFS_MSG));
+        iRet = EDFS_MSG_CTRL_main_recv(&msg, WAIT_FOREVER);
+        if (sizeof(EDFS_MSG) == iRet)
+        {
+        	TRA_PROC_DBG("edfs main recv msg: chan[%d], type[%d]\n", msg.ipcChan, msg.msgType);
+            //4 3.1将消息分发至各个ITS通道
+            EDFS_MAIN_dispatch_msg(&msg);
+        }
+    }
+    //3 4、线程退出，删除线程名称
+    popPthreadInfo(pname, strlen(pname));
+}
+
