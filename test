@@ -25,3 +25,4 @@ void Task_EDFS(void)
     popPthreadInfo(pname, strlen(pname));
 }
 
+试着自己做一个播放器；
