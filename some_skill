@@ -1,1 +1,6 @@
-
+//#ifndef:
+#if !define XXX || !define YYY
+#endif
+//#ifdef:
+#if (define XXX) || (define yyy)
+#endif
