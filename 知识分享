@@ -1,1 +1,14 @@
+/*串口刷包：TFTP工具
+打开tftp工具，设置文件夹路径及自己本地ip
+在文件夹里放入所需要升级的包
 
+Debug:
+Reboot   ->   ctrl + u
+进Uboot:
+pr(展示自己的ip及设备ip等信息)
+
+setenv serverip 10.11.97.30
+setenv ipaddr 10.11.97.240
+
+go   ----升级加密文件
+update ----升级capdav文件
